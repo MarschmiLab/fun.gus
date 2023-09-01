@@ -1,6 +1,3 @@
-library(dplyr)
-library(tidyr)
-library(lubridate)
 #' Parse the terrible export of date times from our Data Log
 #'
 #' You have probably noticed the Google Data log backups have very weird export formats. This function helps parse them to more usable times. This function is just extracted the time from a poorly formatted time column; if you want the full date time, you'll need to parse and combine a date column after using this function to get a clean time column.
