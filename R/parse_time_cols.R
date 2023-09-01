@@ -23,7 +23,3 @@ parse_time_cols <- function(dataframe, bad_column, new_name){
     dplyr::mutate(!!nn := lubridate::as_datetime(Time, format = "%H:%M:%S"))%>%
     dplyr::select(-Weekday, -Month, -Day, -Year, -Time,  - Tmz)
 }
-
-df%>%
-  parse_times(Start_Filtration_Time, Good_Start)%>%
-  parse_times(End_Filtration_Time, Good_End)
