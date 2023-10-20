@@ -39,6 +39,19 @@ load_schmidt_metadata <- function(path_to_data_dir, name_vector = NULL, as_list 
       })
     }
 
+    # Clean up time columns
+    if("Station_Log"%in%names_to_keep){
+      data_dfs[["Station_Log"]] <- parse_time_cols(data_dfs[["Station_Log"]], Station_Time, Station_Time)
+    }
+    if("Deployment_Log"%in%names_to_keep){
+      data_dfs[["Deployment_Log"]] <- parse_time_cols(data_dfs[["Deployment_Log"]], Deployment_Time, Deployment_Time)
+    }
+    if("FP_Process_Details"%in%names_to_keep){
+      data_dfs[["FP_Process_Details"]] <- parse_time_cols(data_dfs[["FP_Process_Details"]], Start_Filtration_Time, Start_Filtration_Time)
+      data_dfs[["FP_Process_Details"]] <- parse_time_cols(data_dfs[["FP_Process_Details"]], End_Filtration_Time, End_Filtration_Time)
+    }
+
+
     if(!as_list){
       list2env(data_dfs, envir = .GlobalEnv) # If not returning as a list, load into global environment
       return("Done!")
