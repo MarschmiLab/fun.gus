@@ -26,3 +26,15 @@ Either a list of tibbles or loads separate tibbles in your environment for each 
 \description{
 Our lab metadata is stored in a Google Sheet \href{https://docs.google.com/spreadsheets/d/1fuiuulXpJf7foikNzMMIkFyYfYsHiCYYjmj4mWTMzss/edit?usp=sharing}{(SCHMIDT_LAB_DATA_LOG)}, which is then exported to CSV files into a \href{https://github.com/MarschmiLab/SCHMIDT_LAB_DATA_LOG}{Github repo.} To use these metadata, you should clone that repo onto your computer, pull before doing any analysis, and then read those CSVs into your R session. `load_schmidt_metadata` helps you read in data from these sheets. You can specify which sheets you want to read in. To list available sheets, use \link{load_metadata_names}.
 }
+\examples{
+list_metadata_names("path/to/datasheets") # Find names of data sheets
+
+load_schmidt_metadata("path/to/datasheets") # Read in an return all datasheets as a list of dataframes
+
+load_schmidt_metadata("path/to/datasheets", name_vector = c("Station_Log","Deployment_Log","Freezer_Log")) # Only load in specified datasheets
+
+load_schmidt_metadata("path/to/datasheets", as_list = FALSE) # Load datasheets as R objects, instead of as a list
+
+load_schmidt_metadata("path/to/datasheets", project = "AAH") # Filter data sheets just for Project_ID AAH
+
+}

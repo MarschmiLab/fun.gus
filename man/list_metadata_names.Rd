@@ -15,3 +15,7 @@ Character vector of data sheet names
 \description{
 Our lab metadata is stored in a Google Sheet \href{https://docs.google.com/spreadsheets/d/1fuiuulXpJf7foikNzMMIkFyYfYsHiCYYjmj4mWTMzss/edit?usp=sharing}{(SCHMIDT_LAB_DATA_LOG)}, which is then exported to CSV files into a \href{https://github.com/MarschmiLab/SCHMIDT_LAB_DATA_LOG}{Github repo.} To use these metadata, you should clone that repo onto your computer, pull before doing any analysis, and then read those CSVs into your R session. This function returns a character vector of the available data sheets.
 }
+\examples{
+list_metadata_names("path/to/datasheets") # Find names of data sheets
+
+}
