@@ -10,6 +10,7 @@
 #' @importFrom tidyr separate
 #' @importFrom lubridate as_datetime
 #' @importFrom magrittr %>%
+#' @importFrom rlang enquo
 #' @export
 parse_time_cols <- function(dataframe, bad_column, new_name){
   bc = enquo(bad_column)
