@@ -43,6 +43,10 @@ Character vector of data sheet names
 list_metadata_names("path/to/datasheets") # Find names of data sheets
 ```
 
+# `load_schmidt_metadata`
+
+Load Schmidt Lab Data_Log Files
+
 `load_schmidt_metadata` helps you read in data from these sheets. You can specify which sheets you want to read in. To list available sheets, use [load_metadata_names](#loadmetadatanames) .
 
 
