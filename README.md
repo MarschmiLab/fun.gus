@@ -89,6 +89,18 @@ load_schmidt_metadata("path/to/datasheets", name_vector = c("Station_Log","Deplo
 load_schmidt_metadata("path/to/datasheets", as_list = FALSE) # Load datasheets as R objects, instead of as a list
 
 load_schmidt_metadata("path/to/datasheets", project = "AAH") # Filter data sheets just for Project_ID AAH
+
+# `make_wellmap_long`
+
+Convert a "wide-formatted" 96-well plate map into long format
+
+## Usage
+
+```r
+make_wellmape_long()
+```
+
+This will launch an interactive Shiny session where you can enter values manually or copy and paste from Excel/Google Sheets.
 ```
 
 

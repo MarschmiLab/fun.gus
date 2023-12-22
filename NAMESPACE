@@ -2,6 +2,7 @@
 
 export(list_metadata_names)
 export(load_schmidt_metadata)
+export(make_wellmap_long)
 export(parse_time_cols)
 importFrom(dplyr,filter)
 importFrom(dplyr,mutate)

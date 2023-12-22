@@ -6,6 +6,6 @@ Author: Gus Pendleton
 Description: A collection of functions that I use a lot
 License: `use_mit_license()`
 Encoding: UTF-8
-Imports: magrittr, dplyr, tidyr, lubridate, readr, stringr, purrr, rlang
+Imports: magrittr, dplyr, tidyr, lubridate, readr, stringr, purrr, rlang, shiny, DT, data.table
 LazyData: true
 RoxygenNote: 7.2.3
