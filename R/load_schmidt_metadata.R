@@ -1,6 +1,6 @@
 #' Load Schmidt Lab Data_Log Files
 #'
-#' Our lab metadata is stored in a Google Sheet \href{https://docs.google.com/spreadsheets/d/1fuiuulXpJf7foikNzMMIkFyYfYsHiCYYjmj4mWTMzss/edit?usp=sharing}{(SCHMIDT_LAB_DATA_LOG)}, which is then exported to CSV files into a \href{https://github.com/MarschmiLab/SCHMIDT_LAB_DATA_LOG}{Github repo.} To use these metadata, you should clone that repo onto your computer, pull before doing any analysis, and then read those CSVs into your R session. `load_schmidt_metadata` helps you read in data from these sheets. You can specify which sheets you want to read in. To list available sheets, use \link{load_metadata_names}.
+#' Our lab metadata is stored in a Google Sheet [(SCHMIDT_LAB_DATA_LOG)](https://docs.google.com/spreadsheets/d/1fuiuulXpJf7foikNzMMIkFyYfYsHiCYYjmj4mWTMzss/edit?usp=sharing), which is then exported to CSV files into a [Github repo.](https://github.com/MarschmiLab/SCHMIDT_LAB_DATA_LOG) To use these metadata, you should clone that repo onto your computer, pull before doing any analysis, and then read those CSVs into your R session. `load_schmidt_metadata` helps you read in data from these sheets. You can specify which sheets you want to read in. To list available sheets, use [load_metadata_names].
 #' @param path_to_data_dir String, absolute or relative path to the SCHMIDT_LAB_DATA_LOG directory
 #' @param name_vector Optional string vector of data sheet names to load (otherwise loads all of them)
 #' @param as_list Logical, whether to bring in data sheets as a list, or as separate R objects.
@@ -73,7 +73,7 @@ load_schmidt_metadata <- function(path_to_data_dir, name_vector = NULL, as_list 
 
 #' Find names of data sheets in SCHMIDT_LAB_DATA_LOG
 #'
-#' Our lab metadata is stored in a Google Sheet \href{https://docs.google.com/spreadsheets/d/1fuiuulXpJf7foikNzMMIkFyYfYsHiCYYjmj4mWTMzss/edit?usp=sharing}{(SCHMIDT_LAB_DATA_LOG)}, which is then exported to CSV files into a \href{https://github.com/MarschmiLab/SCHMIDT_LAB_DATA_LOG}{Github repo.} To use these metadata, you should clone that repo onto your computer, pull before doing any analysis, and then read those CSVs into your R session. This function returns a character vector of the available data sheets.
+#' Our lab metadata is stored in a Google Sheet [(SCHMIDT_LAB_DATA_LOG)](https://docs.google.com/spreadsheets/d/1fuiuulXpJf7foikNzMMIkFyYfYsHiCYYjmj4mWTMzss/edit?usp=sharing), which is then exported to CSV files into a [Github repo.](https://github.com/MarschmiLab/SCHMIDT_LAB_DATA_LOG) To use these metadata, you should clone that repo onto your computer, pull before doing any analysis, and then read those CSVs into your R session. This function returns a character vector of the available data sheets.
 #' @param path_to_data_dir String, absolute or relative path to the SCHMIDT_LAB_DATA_LOG directory
 #' @returns Character vector of data sheet names
 #' @examples
