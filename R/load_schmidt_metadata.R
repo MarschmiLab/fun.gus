@@ -22,6 +22,7 @@
 #' @importFrom readr read_csv
 #' @importFrom dplyr filter
 #' @importFrom stringr str_remove
+#' @importFrom rlang enquo
 #' @export
 load_schmidt_metadata <- function(path_to_data_dir, name_vector = NULL, as_list = TRUE, project = NULL){
 
