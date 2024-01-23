@@ -16,7 +16,7 @@
 #' @importFrom future plan
 #' @importFrom furrr future_map
 #' @importFrom abind abind
-#' @importFrom magrittr %in%
+#' @importFrom magrittr %>%
 #'
 #' @export
 rarefaction_beta_calculations <- function(phy_object, rarefy_depth, iterations, method, seed, threads){
