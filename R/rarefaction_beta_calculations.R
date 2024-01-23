@@ -14,7 +14,7 @@
 #'
 #' @importFrom phyloseq rarefy_even_depth distance nsamples
 #' @importFrom future plan multisession
-#' @importFrom furrr future_map
+#' @importFrom furrr future_map furrr_options
 #' @importFrom abind abind
 #' @importFrom magrittr %>%
 #'
