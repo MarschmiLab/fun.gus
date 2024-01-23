@@ -16,15 +16,17 @@
 #' @importFrom future plan
 #' @importFrom furrr future_map
 #' @importFrom abind abind
+#' @importFrom magrittr %in%
+#'
 #' @export
 rarefaction_beta_calculations <- function(phy_object, rarefy_depth, iterations, method, seed, threads){
 
-
+  print(paste("Calculating", method, "distance on", deparse(substitute(phy_object))))
   samples <- nsamples(phy_object)
 
   plan(multisession, workers = threads)
 
-  res_list <- future_map(1:iterations, .options = furrr_options(seed=seed), function(x){
+  res_list <- future_map(1:iterations, .options = furrr_options(seed=seed), .progress = TRUE, function(x){
     rarefy_even_depth(phy_object, sample.size = rarefy_depth, replace = FALSE, rngseed = FALSE, verbose = FALSE) %>%
       phyloseq::distance(method = method)%>%
       as.matrix()
