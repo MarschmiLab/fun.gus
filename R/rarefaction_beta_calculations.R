@@ -13,7 +13,7 @@
 #' bray_distance <- rarefaction_beta_calculations(phy_object = preprocessed_physeq, rarefy_depth = 5000, iterations = 100, method = "bray", seed = 031491, threads = 10)
 #'
 #' @importFrom phyloseq rarefy_even_depth distance nsamples
-#' @importFrom future plan
+#' @importFrom future plan multisession
 #' @importFrom furrr future_map
 #' @importFrom abind abind
 #' @importFrom magrittr %>%
