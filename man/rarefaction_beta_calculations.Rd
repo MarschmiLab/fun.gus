@@ -20,7 +20,7 @@ rarefaction_beta_calculations(
 
 \item{iterations}{how many times the metric should be calculated before averaging; recommended minimum 100 up to 1000}
 
-\item{method}{a distance metric as listed in the phyloseq::distance() function; recommended "bray"}
+\item{method}{a distance metric as listed in the phyloseq::distance() function OR method = "sorensen" (which runs method = 'bray', binary = TRUE under the hood).}
 
 \item{seed}{an integer to set the random seed - required for reproducible calculations! Using set.seed will not be sufficient}
 

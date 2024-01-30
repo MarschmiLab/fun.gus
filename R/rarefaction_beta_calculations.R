@@ -4,7 +4,7 @@
 #' @param phy_object a phyloseq object containing an otu_table of feature counts
 #' @param rarefy_depth read depth to rarefy to in each iteration; generally the read count of the sample with the fewest reads
 #' @param iterations how many times the metric should be calculated before averaging; recommended minimum 100 up to 1000
-#' @param method a distance metric as listed in the phyloseq::distance() function; recommended "bray"
+#' @param method a distance metric as listed in the phyloseq::distance() function OR method = "sorensen" (which runs method = 'bray', binary = TRUE under the hood).
 #' @param seed an integer to set the random seed - required for reproducible calculations! Using set.seed will not be sufficient
 #' @param threads how many threads to use. Optimum number will depend on your number of iterations. Generally if running 10000 iterations, I wouldn't use more than 20 threads.
 #' @returns a dist object with average distance between each sample
@@ -23,6 +23,8 @@ rarefaction_beta_calculations <- function(phy_object, rarefy_depth, iterations, 
 
   print(paste("Calculating", method, "distance on", deparse(substitute(phy_object))))
 
+  if(method != "sorensen"){
+
   samples <- nsamples(phy_object)
 
   plan(multisession, workers = threads)
@@ -39,5 +41,23 @@ rarefaction_beta_calculations <- function(phy_object, rarefy_depth, iterations, 
     as.dist()
 
   return(result)
+  }else{
+    samples <- nsamples(phy_object)
+
+    plan(multisession, workers = threads)
+
+    res_list <- future_map(1:iterations, .options = furrr_options(seed=seed), .progress = TRUE, function(x){
+      rarefy_even_depth(phy_object, sample.size = rarefy_depth, replace = FALSE, rngseed = FALSE, verbose = FALSE) %>%
+        phyloseq::distance(method = "bray", binary = TRUE)%>%
+        as.matrix()
+
+    })
+
+    result <-  abind(res_list, along = 0) %>%
+      apply(2:3, mean)%>%
+      as.dist()
+
+    return(result)
+  }
 
 }
