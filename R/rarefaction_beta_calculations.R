@@ -41,21 +41,21 @@ rarefaction_beta_calculations <- function(phy_object, rarefy_depth, iterations, 
     as.dist()
 
   }else{
-    # samples <- nsamples(phy_object)
-    #
-    # plan(multisession, workers = threads)
-    #
-    # res_list <- future_map(1:iterations, .options = furrr_options(seed=seed), .progress = TRUE, function(x){
-    #   rarefy_even_depth(phy_object, sample.size = rarefy_depth, replace = FALSE, rngseed = FALSE, verbose = FALSE) %>%
-    #     phyloseq::distance(method = "bray", binary = TRUE)%>%
-    #     as.matrix()
-    #
-    # })
-    #
-    # result <-  abind(res_list, along = 0) %>%
-    #   apply(2:3, mean)%>%
-    #   as.dist()
-    result <- "We at least missed a sorensen error"
+    samples <- nsamples(phy_object)
+
+    plan(multisession, workers = threads)
+
+    res_list <- future_map(1:iterations, .options = furrr_options(seed=seed), .progress = TRUE, function(x){
+      rarefy_even_depth(phy_object, sample.size = rarefy_depth, replace = FALSE, rngseed = FALSE, verbose = FALSE) %>%
+        phyloseq::distance(method = "bray", binary = TRUE)%>%
+        as.matrix()
+
+    })
+
+    result <-  abind(res_list, along = 0) %>%
+      apply(2:3, mean)%>%
+      as.dist()
+
 
   }
   return(result)
