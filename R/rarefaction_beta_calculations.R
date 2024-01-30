@@ -40,7 +40,6 @@ rarefaction_beta_calculations <- function(phy_object, rarefy_depth, iterations, 
     apply(2:3, mean)%>%
     as.dist()
 
-  return(result)
   }else{
     samples <- nsamples(phy_object)
 
@@ -57,7 +56,6 @@ rarefaction_beta_calculations <- function(phy_object, rarefy_depth, iterations, 
       apply(2:3, mean)%>%
       as.dist()
 
-    return(result)
   }
-
+  return(result)
 }
