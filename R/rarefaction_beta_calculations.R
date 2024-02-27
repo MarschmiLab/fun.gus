@@ -21,6 +21,14 @@
 #' @export
 rarefaction_beta_calculations <- function(phy_object, rarefy_depth, iterations, method, seed, threads){
 
+  sam_sums <- sample_sums(phy_object)
+
+  num_smaller <- sum(sam_sums < rarefy_depth)
+
+  if(num_smaller > 0){
+    warning(paste0("Sample sums for ",num_smaller," sample(s) are less than your rarefy_depth. Samples may be dropped"), immediate. = TRUE)
+  }
+
   print(paste("Calculating", method, "distance on", deparse(substitute(phy_object))))
 
   if(method != "sorensen"){
@@ -57,6 +65,9 @@ rarefaction_beta_calculations <- function(phy_object, rarefy_depth, iterations, 
       as.dist()
 
 
+  }
+  if(num_smaller > 0){
+    warning(paste0("Sample sums for ",num_smaller," sample(s) are less than your rarefy_depth. Samples may be dropped (this message is repeated)"), immediate. = TRUE)
   }
   return(result)
 }
