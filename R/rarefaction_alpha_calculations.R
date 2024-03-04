@@ -25,6 +25,23 @@ rarefaction_alpha_calculations <- function(phy_object, rarefy_depth, iterations,
     error("Method must be either 'both', 'taxonomic' or 'phylo'")
   }
 
+  row_vs_col <- otu_table(phy_object)$taxa_are_rows
+
+  if(row_vs_col){
+    input_maker <- function(phy){
+      phy %>%
+        otu_table() %>%
+        data.frame()
+    }
+    }else{
+      input_maker <- function(phy){
+        phy %>%
+        otu_table() %>%
+        data.frame() %>%
+        t()
+      }
+    }
+
   sam_sums <- sample_sums(phy_object)
 
   num_smaller <- sum(sam_sums < rarefy_depth)
@@ -45,10 +62,7 @@ rarefaction_alpha_calculations <- function(phy_object, rarefy_depth, iterations,
 
       rare_physeq <- rarefy_even_depth(phy_object, sample.size = rarefy_depth, replace = FALSE, rngseed = FALSE, verbose = FALSE)
 
-      input_df <- rare_physeq %>%
-        otu_table() %>%
-        data.frame() %>%
-        t()
+      input_df <- input_maker(rare_physeq)
 
       map_dfr(q_nums, \(.q)hill_phylo(input_df, phy_tree(rare_physeq), q = .q)) %>%
         as.matrix()
@@ -71,10 +85,7 @@ rarefaction_alpha_calculations <- function(phy_object, rarefy_depth, iterations,
 
       rare_physeq <- rarefy_even_depth(phy_object, sample.size = rarefy_depth, replace = FALSE, rngseed = FALSE, verbose = FALSE)
 
-      input_df <- rare_physeq %>%
-        otu_table() %>%
-        data.frame() %>%
-        t()
+      input_df <- input_maker(rare_physeq)
 
       map_dfr(t_nums, \(.q)hill_taxa(input_df, q = .q)) %>%
         as.matrix()
@@ -98,10 +109,7 @@ rarefaction_alpha_calculations <- function(phy_object, rarefy_depth, iterations,
 
       rare_physeq <- rarefy_even_depth(phy_object, sample.size = rarefy_depth, replace = FALSE, rngseed = FALSE, verbose = FALSE)
 
-      input_df <- rare_physeq %>%
-        otu_table() %>%
-        data.frame() %>%
-        t()
+      input_df <- input_maker(rare_physeq)
 
       tax_mat <- map_dfr(t_nums, \(.q)hill_taxa(input_df, q = .q)) %>%
         as.matrix()
