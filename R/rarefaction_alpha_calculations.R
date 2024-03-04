@@ -49,7 +49,7 @@ rarefaction_alpha_calculations <- function(phy_object, rarefy_depth, iterations,
     warning(paste0("Sample sums for ",num_smaller," sample(s) are less than your rarefy_depth. Samples may be dropped"), immediate. = TRUE)
   }
 
-  print(paste("Calculating", method, "distance on", deparse(substitute(phy_object))))
+  print(paste("Calculating", method, "diversity approaches on", deparse(substitute(phy_object))))
 
   if(method == "phylo"){
 
