@@ -136,3 +136,37 @@ a dist object with average distance between each sample
 # Calculate Bray-Curtis distance at a rarefied depth of 5000, 100 iterations, using 10 threads
 bray_distance <- rarefaction_beta_calculations(phy_object = preprocessed_physeq, rarefy_depth = 5000, iterations = 100, method = "bray", seed = 031491, threads = 10)
 ```
+
+# `rarefaction_alpha_calculations`
+
+Calculate taxonomic and phylogenetic alpha diversity using rarefaction and hill numbers
+
+This function repeatedly rarefies a phyloseq object (usually containing 16S data) and calculates alpha diversity measures using Hill Divesity numbers. Can also calculate phylogenetic distance, if your phyloseq object contains a tree.
+
+## Usage
+
+``` r
+rarefaction_alpha_calculations(
+  phy_object, 
+  rarefy_depth, 
+  iterations, 
+  method = "both", 
+  seed, 
+  threads
+)
+```
+
+## Arguments
+
+| Argument       | Description                                                                                                                                                   |
+|--------------------------------|----------------------------------------|
+| `phy_object`   | a phyloseq object containing an otu_table of feature counts and (optionally) a phylogenetic tree with branch lengths                                          |
+| `rarefy_depth` | read depth to rarefy to in each iteration; generally the read count of the sample with the fewest reads                                                       |
+| `iterations`   | how many times the metric should be calculated before averaging; recommended minimum 100 up to 1000                                                           |
+| `method`       | whether to calculate taxonomic or phylogenetic hill diversity numbers (or both). Acceptables values include "taxonomic","phylo", or "both"                    |
+| `seed`         | an integer to set the random seed - required for reproducible calculations! Using set.seed will not be sufficient                                             |
+| `threads`      | how many threads to use. Optimum number will depend on your number of iterations. Generally if running 10000 iterations, I wouldn't use more than 20 threads. |
+
+## Value
+
+A dataframe with estimated diversity (qD) for Hill numbers 0-2 for each sample.
