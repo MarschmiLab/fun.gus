@@ -24,7 +24,7 @@ rarefaction_beta_calculations(
 
 \item{seed}{an integer to set the random seed - required for reproducible calculations! Using set.seed will not be sufficient}
 
-\item{threads}{how many threads to use. Optimum number will depend on your number of iterations. Generally if running 10000 iterations, I wouldn't use more than 20 threads.}
+\item{threads}{how many threads to use. Optimum number will depend on your number of iterations. Generally if running 1000 iterations, I wouldn't use more than 20 threads.}
 }
 \value{
 a dist object with average distance between each sample

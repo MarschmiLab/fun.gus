@@ -6,7 +6,7 @@
 #' @param iterations how many times the metric should be calculated before averaging; recommended minimum 100 up to 1000
 #' @param method a distance metric as listed in the phyloseq::distance() function OR method = "sorensen" (which runs method = 'bray', binary = TRUE under the hood).
 #' @param seed an integer to set the random seed - required for reproducible calculations! Using set.seed will not be sufficient
-#' @param threads how many threads to use. Optimum number will depend on your number of iterations. Generally if running 10000 iterations, I wouldn't use more than 20 threads.
+#' @param threads how many threads to use. Optimum number will depend on your number of iterations. Generally if running 1000 iterations, I wouldn't use more than 20 threads.
 #' @returns a dist object with average distance between each sample
 #' @examples
 #' # Calculate Bray-Curtis distance at a rarefied depth of 5000, 100 iterations, using 10 threads
