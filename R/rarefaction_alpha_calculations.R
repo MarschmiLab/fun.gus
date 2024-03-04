@@ -91,7 +91,6 @@ rarefaction_alpha_calculations <- function(phy_object, rarefy_depth, iterations,
 
     })
 
-    return(res_list)
 
     result <-  abind(res_list, along = 0) %>%
       apply(2:3, mean)%>%
