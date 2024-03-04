@@ -30,17 +30,17 @@ rarefaction_alpha_calculations <- function(phy_object, rarefy_depth, iterations,
     input_maker <- function(phy){
       phy %>%
         otu_table() %>%
-        data.frame()
-    }
-    }else{
-      input_maker <- function(phy){
-        phy %>%
-        otu_table() %>%
         data.frame() %>%
         t()
-      }
     }
+    }else{
 
+      input_maker <- function(phy){
+        phy %>%
+          otu_table() %>%
+          data.frame()
+    }
+  }
   sam_sums <- sample_sums(phy_object)
 
   num_smaller <- sum(sam_sums < rarefy_depth)
