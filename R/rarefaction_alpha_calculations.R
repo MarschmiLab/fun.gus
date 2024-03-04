@@ -9,7 +9,7 @@
 #' @param threads how many threads to use. Optimum number will depend on your number of iterations. Generally if running 1000 iterations, I wouldn't use more than 20 threads.
 #' @returns a dataframe with estimated diversity (qD) for hill numbers 0-2 for each sample.
 
-#' @importFrom phyloseq rarefy_even_depth phy_tree
+#' @importFrom phyloseq rarefy_even_depth phy_tree taxa_are_rows
 #' @importFrom future plan multisession
 #' @importFrom furrr future_map furrr_options
 #' @importFrom abind abind
@@ -25,9 +25,8 @@ rarefaction_alpha_calculations <- function(phy_object, rarefy_depth, iterations,
     error("Method must be either 'both', 'taxonomic' or 'phylo'")
   }
 
-  row_vs_col <- otu_table(phy_object)$taxa_are_rows
 
-  if(row_vs_col){
+  if(taxa_are_rows(phy_object)){
     input_maker <- function(phy){
       phy %>%
         otu_table() %>%
