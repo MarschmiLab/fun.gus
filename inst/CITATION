@@ -1,0 +1,11 @@
+citHeader("To cite fun.gus in publications use:")
+
+bibentry(
+  key = "fun.gus",
+  bibtype  = "Manual",
+  title    = "Custom functions used in the Cornell Aquatic Microbiology Lab",
+  author = c(person("Augustus", "Pendleton"),
+  note  = "R package version 0.2.6",
+  year     = "2024",
+  url      = "https://github.com/MarschmiLab/fun.gus"
+)
