@@ -9,7 +9,7 @@
 #'
 #' @export
 count_gated_events <- function(flo_set, gate){
-    summaries <- flowCore::summary(flowCore::filter(flow_set, gate))
+    summaries <- flowCore::summary(flowCore::filter(flo_set, gate))
 
     res_df <- purrr::map_dfr(summaries, \(x){
       data.frame(initial = x@count,
