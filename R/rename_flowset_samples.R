@@ -9,7 +9,7 @@
 #' @export
 rename_flowset_samples <- function(flo_set, new_names){
   if(length(new_names) != length(flowCore::sampleNames(flo_set))){
-    stop("Length of new_names doesn't match number of samples in flowset. Needed ", length(flowCore::sampleNames(flowset))," new names, ", length(new_names), " provided")
+    stop("Length of new_names doesn't match number of samples in flowset. Needed ", length(flowCore::sampleNames(flo_set))," new names, ", length(new_names), " provided")
   }
   flo_copy <- flo_set
   flowCore::pData(flo_copy)$name <- new_names
