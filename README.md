@@ -27,7 +27,7 @@ list_metadata_names(path_to_data_dir)
 ## Arguments
 
 | Argument           | Description                                                             |
-|--------------------|-------------------------------------------------------------------------|
+|-------------------|-----------------------------------------------------|
 | `path_to_data_dir` | String, absolute or relative path to the SCHMIDT_LAB_DATA_LOG directory |
 
 ## Value
@@ -60,7 +60,7 @@ load_schmidt_metadata(
 ## Arguments
 
 | Argument           | Description                                                                               |
-|--------------------|-------------------------------------------------------------------------------------------|
+|-------------------|-----------------------------------------------------|
 | `path_to_data_dir` | String, absolute or relative path to the SCHMIDT_LAB_DATA_LOG directory                   |
 | `name_vector`      | Optional string vector of data sheet names to load (otherwise loads all of them)          |
 | `as_list`          | Logical, whether to bring in data sheets as a list, or as separate R objects.             |
@@ -118,7 +118,7 @@ rarefaction_beta_calculations(
 ## Arguments
 
 | Argument       | Description                                                                                                                                                   |
-|----------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|------------------|------------------------------------------------------|
 | `phy_object`   | a phyloseq object containing an otu_table of feature counts                                                                                                   |
 | `rarefy_depth` | read depth to rarefy to in each iteration; generally the read count of the sample with the fewest reads                                                       |
 | `iterations`   | how many times the metric should be calculated before averaging; recommended minimum 100 up to 1000                                                           |
@@ -159,7 +159,7 @@ rarefaction_alpha_calculations(
 ## Arguments
 
 | Argument       | Description                                                                                                                                                   |
-|----------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|------------------|------------------------------------------------------|
 | `phy_object`   | a phyloseq object containing an otu_table of feature counts and (optionally) a phylogenetic tree with branch lengths                                          |
 | `rarefy_depth` | read depth to rarefy to in each iteration; generally the read count of the sample with the fewest reads                                                       |
 | `iterations`   | how many times the metric should be calculated before averaging; recommended minimum 100 up to 1000                                                           |
@@ -170,6 +170,40 @@ rarefaction_alpha_calculations(
 ## Value
 
 A dataframe with estimated diversity (qD) for Hill numbers 0-2 for each sample.
+
+# `reorder_variable_by_clustering`
+
+Reorder categorical variables via hierarchical clustering for plotting heat maps.
+
+Often in heatmaps, we want to reorder our rows and columns via hierarchical clustering. This function takes in your dataframe and outputs a new dataframe, where your categorical variables have been converted to factors. The levels of these factors are the order of samples in a dendrogram. If wanted, this function can also return the dendrograms, for later plotting.
+
+## Usage
+
+``` r
+reorder_variable_by_clustering(data,
+                               grouping_var1,
+                               grouping_var2,
+                               count_var,
+                               order_both = FALSE,
+                               value_fill = NULL,
+                               return_dendro = FALSE)
+```
+
+## Arguments
+
+| Argument        | Description                                                                                                                                                                                                                                                                                                                                                                                                       |
+|------------------|------------------------------------------------------|
+| `data`          | A dataframe                                                                                                                                                                                                                                                                                                                                                                                                       |
+| `grouping_var1` | The first categorical variable you'd like to reorder, as a string (in quotes!)                                                                                                                                                                                                                                                                                                                                    |
+| `grouping_var2` | The second categorical variable you'd like to reorder (you can prevent reordering this variable by setting `order_both` to false).                                                                                                                                                                                                                                                                                |
+| `count_var`     | The continuous variable which will fill your heatmap                                                                                                                                                                                                                                                                                                                                                              |
+| `order_both`    | Should both grouping_var1 and grouping_var2 be reordered? If false (default), only grouping_var1 is reordered.                                                                                                                                                                                                                                                                                                    |
+| `value_fill`    | Value to fill in for level combinations which don't have observations. Defaults to NULL (no filling).                                                                                                                                                                                                                                                                                                             |
+| `return_dendro` | Should the dendrogram also be returned, in addition to the reordered dataframe? If false (the default) returns the dataframe with converted columns. If true, returns a list, in which `reord_df` holds the reordered dataframe, and `dendrogram` holds the dendrogram. If both grouping variables were reordered, the list will include `dendrogram1` for `grouping_var1` and `dendrogram2` for `grouping_var2`. |
+
+## Value
+
+Either a dataframe whose grouping columns have been converted to factors whose levels are in the same order as a hierarchical clustering dendrogram, or (if `return_dendro = TRUE`) a list holding the reordered dataframe as well as the computed dendrogram(s).
 
 # Flow Cytometry Functions
 
@@ -200,7 +234,7 @@ Often, your flowset sample names are simply the file paths of each fcs file. Thi
 ## Arguments
 
 | Argument          | Description                                                                                                                |
-|-------------------|----------------------------------------------------------------------------------------------------------------------------|
+|------------------|------------------------------------------------------|
 | `flo_set`         | a flowSet created by flowCore                                                                                              |
 | `` `new_names` `` | a character vector of new names for each flowFrame in the flowSet. Length must match the number of frames in your flowSet. |
 
@@ -213,6 +247,6 @@ Given a flowSet and a gate (whose parameters match those in the flowSet), this w
 ## Arguments
 
 | Argument  | Description                                                                        |
-|-----------|------------------------------------------------------------------------------------|
+|------------------|------------------------------------------------------|
 | `flo_set` | a flowSet created by flowCore                                                      |
 | `gate`    | a gate created by flowCore, whose parameters are found within the provided flowSet |
