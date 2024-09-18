@@ -62,6 +62,10 @@ load_schmidt_metadata <- function(path_to_data_dir, name_vector = NULL, as_list 
       data_dfs[["FP_Process_Details"]] <- parse_time_cols(data_dfs[["FP_Process_Details"]], Start_Filtration_Time, Start_Filtration_Time)
       data_dfs[["FP_Process_Details"]] <- parse_time_cols(data_dfs[["FP_Process_Details"]], End_Filtration_Time, End_Filtration_Time)
     }
+    if("PT_DT_Process_Details"%in%names_to_keep){
+      data_dfs[["PT_DT_Process_Details"]] <- parse_time_cols(data_dfs[["PT_DT_Process_Details"]], Start_Filtration_Time, Start_Filtration_Time)
+      data_dfs[["PT_DT_Process_Details"]] <- parse_time_cols(data_dfs[["PT_DT_Process_Details"]], End_Filtration_Time, End_Filtration_Time)
+    }
 
 
     if(!as_list){
