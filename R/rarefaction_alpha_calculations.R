@@ -17,6 +17,7 @@
 #' @importFrom dplyr mutate
 #' @importFrom tidyr pivot_longer
 #' @importFrom purrr map_dfr
+#' @importFrom hillR hill_phylo hill_taxa
 #'
 #' @export
 rarefaction_alpha_calculations <- function(phy_object, rarefy_depth, iterations, method = "both", seed, threads){
