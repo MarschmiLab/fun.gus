@@ -9,7 +9,7 @@
 
 #' @importFrom phyloseq otu_table taxa_are_rows
 #' @importFrom dplyr bind_rows
-#' @importFrom purrr map2 bind_rows
+#' @importFrom purrr map2
 #'
 #' @export
 fast_rarefaction_curves <- function(physeq, iterations, steps, seed = 1){
