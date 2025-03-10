@@ -14,7 +14,7 @@
 #' @export
 fast_rarefaction_curves <- function(physeq, iterations, steps, seed = 1){
 
-  if(taxa_are_rows(phy_object)){
+  if(taxa_are_rows(physeq)){
 
     df <-
       physeq %>%
