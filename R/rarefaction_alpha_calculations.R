@@ -4,7 +4,7 @@
 #' @param phy_object a phyloseq object containing an otu_table of feature counts
 #' @param rarefy_depth read depth to rarefy to in each iteration; generally the read count of the sample with the fewest reads
 #' @param iterations how many times the metric should be calculated before averaging; recommended minimum 100 up to 1000
-#' @param method whether to calculate taxonomic or phylogenetic hill diversity numbers (or both). Acceptables values include "taxonomic","phylo", or "both"
+#' @param method whether to calculate taxonomic or phylogenetic hill diversity numbers (or both). Acceptable values include "taxonomic","phylo", or "both"
 #' @param seed an integer to set the random seed - required for reproducible calculations! Using set.seed will not be sufficient
 #' @param threads how many threads to use. Optimum number will depend on your number of iterations. Generally if running 1000 iterations, I wouldn't use more than 20 threads.
 #' @returns a dataframe with estimated diversity (qD) for hill numbers 0-2 for each sample.
@@ -69,11 +69,19 @@ rarefaction_alpha_calculations <- function(phy_object, rarefy_depth, iterations,
 
     })
 
-    result <-  abind(res_list, along = 0) %>%
+    result_mean <-  abind(res_list, along = 0) %>%
       apply(2:3, mean)%>%
       data.frame() %>%
       mutate(Measure = names(q_nums)) %>%
       pivot_longer(!Measure, names_to = "Sample", values_to = "qD")
+
+    result_sd <-  abind(res_list, along = 0) %>%
+      apply(2:3, sd)%>%
+      data.frame() %>%
+      mutate(Measure = names(q_nums)) %>%
+      pivot_longer(!Measure, names_to = "Sample", values_to = "st.dev")
+
+    result <- inner_join(result_mean, result_sd)
 
   }else if (method == "taxonomic"){
 
@@ -93,11 +101,19 @@ rarefaction_alpha_calculations <- function(phy_object, rarefy_depth, iterations,
     })
 
 
-    result <-  abind(res_list, along = 0) %>%
+    result_mean <-  abind(res_list, along = 0) %>%
       apply(2:3, mean)%>%
       data.frame() %>%
-      mutate(Measure = names(t_nums)) %>%
+      mutate(Measure = names(q_nums)) %>%
       pivot_longer(!Measure, names_to = "Sample", values_to = "qD")
+
+    result_sd <-  abind(res_list, along = 0) %>%
+      apply(2:3, sd)%>%
+      data.frame() %>%
+      mutate(Measure = names(q_nums)) %>%
+      pivot_longer(!Measure, names_to = "Sample", values_to = "st.dev")
+
+    result <- inner_join(result_mean, result_sd)
 
 
   }else{
@@ -122,11 +138,19 @@ rarefaction_alpha_calculations <- function(phy_object, rarefy_depth, iterations,
 
     })
 
-    result <-  abind(res_list, along = 0) %>%
+    result_mean <-  abind(res_list, along = 0) %>%
       apply(2:3, mean)%>%
       data.frame() %>%
-      mutate(Measure = c(names(t_nums), names(q_nums))) %>%
+      mutate(Measure = names(q_nums)) %>%
       pivot_longer(!Measure, names_to = "Sample", values_to = "qD")
+
+    result_sd <-  abind(res_list, along = 0) %>%
+      apply(2:3, sd)%>%
+      data.frame() %>%
+      mutate(Measure = names(q_nums)) %>%
+      pivot_longer(!Measure, names_to = "Sample", values_to = "st.dev")
+
+    result <- inner_join(result_mean, result_sd)
 
   }
   if(num_smaller > 0){

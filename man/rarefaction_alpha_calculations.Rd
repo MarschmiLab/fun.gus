@@ -20,7 +20,7 @@ rarefaction_alpha_calculations(
 
 \item{iterations}{how many times the metric should be calculated before averaging; recommended minimum 100 up to 1000}
 
-\item{method}{whether to calculate taxonomic or phylogenetic hill diversity numbers (or both). Acceptables values include "taxonomic","phylo", or "both"}
+\item{method}{whether to calculate taxonomic or phylogenetic hill diversity numbers (or both). Acceptable values include "taxonomic","phylo", or "both"}
 
 \item{seed}{an integer to set the random seed - required for reproducible calculations! Using set.seed will not be sufficient}
 
