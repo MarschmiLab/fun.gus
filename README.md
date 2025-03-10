@@ -26,8 +26,8 @@ list_metadata_names(path_to_data_dir)
 
 ## Arguments
 
-| Argument           | Description                                                             |
-|-------------------|-----------------------------------------------------|
+| Argument | Description |
+|--------------------|----------------------------------------------------|
 | `path_to_data_dir` | String, absolute or relative path to the SCHMIDT_LAB_DATA_LOG directory |
 
 ## Value
@@ -59,12 +59,12 @@ load_schmidt_metadata(
 
 ## Arguments
 
-| Argument           | Description                                                                               |
-|-------------------|-----------------------------------------------------|
-| `path_to_data_dir` | String, absolute or relative path to the SCHMIDT_LAB_DATA_LOG directory                   |
-| `name_vector`      | Optional string vector of data sheet names to load (otherwise loads all of them)          |
-| `as_list`          | Logical, whether to bring in data sheets as a list, or as separate R objects.             |
-| `project`          | Optional Project_ID; results will be filtered to that project (if relevant to data sheet) |
+| Argument | Description |
+|--------------------|----------------------------------------------------|
+| `path_to_data_dir` | String, absolute or relative path to the SCHMIDT_LAB_DATA_LOG directory |
+| `name_vector` | Optional string vector of data sheet names to load (otherwise loads all of them) |
+| `as_list` | Logical, whether to bring in data sheets as a list, or as separate R objects. |
+| `project` | Optional Project_ID; results will be filtered to that project (if relevant to data sheet) |
 
 ## Value
 
@@ -117,14 +117,14 @@ rarefaction_beta_calculations(
 
 ## Arguments
 
-| Argument       | Description                                                                                                                                                   |
-|------------------|------------------------------------------------------|
-| `phy_object`   | a phyloseq object containing an otu_table of feature counts                                                                                                   |
-| `rarefy_depth` | read depth to rarefy to in each iteration; generally the read count of the sample with the fewest reads                                                       |
-| `iterations`   | how many times the metric should be calculated before averaging; recommended minimum 100 up to 1000                                                           |
-| `method`       | a distance metric as listed in the phyloseq::distance() function; recommended "bray"                                                                          |
-| `seed`         | an integer to set the random seed - required for reproducible calculations! Using set.seed will not be sufficient                                             |
-| `threads`      | how many threads to use. Optimum number will depend on your number of iterations. Generally if running 10000 iterations, I wouldn't use more than 20 threads. |
+| Argument | Description |
+|-------------------|-----------------------------------------------------|
+| `phy_object` | a phyloseq object containing an otu_table of feature counts |
+| `rarefy_depth` | read depth to rarefy to in each iteration; generally the read count of the sample with the fewest reads |
+| `iterations` | how many times the metric should be calculated before averaging; recommended minimum 100 up to 1000 |
+| `method` | a distance metric as listed in the phyloseq::distance() function; recommended "bray" |
+| `seed` | an integer to set the random seed - required for reproducible calculations! Using set.seed will not be sufficient |
+| `threads` | how many threads to use. Optimum number will depend on your number of iterations. Generally if running 10000 iterations, I wouldn't use more than 20 threads. |
 
 ## Value
 
@@ -158,18 +158,46 @@ rarefaction_alpha_calculations(
 
 ## Arguments
 
-| Argument       | Description                                                                                                                                                   |
-|------------------|------------------------------------------------------|
-| `phy_object`   | a phyloseq object containing an otu_table of feature counts and (optionally) a phylogenetic tree with branch lengths                                          |
-| `rarefy_depth` | read depth to rarefy to in each iteration; generally the read count of the sample with the fewest reads                                                       |
-| `iterations`   | how many times the metric should be calculated before averaging; recommended minimum 100 up to 1000                                                           |
-| `method`       | whether to calculate taxonomic or phylogenetic hill diversity numbers (or both). Acceptables values include "taxonomic","phylo", or "both"                    |
-| `seed`         | an integer to set the random seed - required for reproducible calculations! Using set.seed will not be sufficient                                             |
-| `threads`      | how many threads to use. Optimum number will depend on your number of iterations. Generally if running 10000 iterations, I wouldn't use more than 20 threads. |
+| Argument | Description |
+|-------------------|-----------------------------------------------------|
+| `phy_object` | a phyloseq object containing an otu_table of feature counts and (optionally) a phylogenetic tree with branch lengths |
+| `rarefy_depth` | read depth to rarefy to in each iteration; generally the read count of the sample with the fewest reads |
+| `iterations` | how many times the metric should be calculated before averaging; recommended minimum 100 up to 1000 |
+| `method` | whether to calculate taxonomic or phylogenetic hill diversity numbers (or both). Acceptables values include "taxonomic","phylo", or "both" |
+| `seed` | an integer to set the random seed - required for reproducible calculations! Using set.seed will not be sufficient |
+| `threads` | how many threads to use. Optimum number will depend on your number of iterations. Generally if running 10000 iterations, I wouldn't use more than 20 threads. |
 
 ## Value
 
 A dataframe with estimated diversity (qD) for Hill numbers 0-2 for each sample.
+
+# `fast_rarefaction_curves`
+
+This function uses the `rmvhyper()` function from the `extraDistr` package to rapidly estimate rarefaction across your OTU table. This makes it much faster than the `rarefy_even_depth` function from `phyloseq`, or the manual rarefaction performed in `iNEXT`.
+
+## Usage
+
+``` r
+fast_rarefaction_curves(
+  physeq, 
+  iterations, 
+  steps, 
+  seed = 1
+)
+```
+
+## Arguments
+
+| Argument | Description |
+|-------------------|-----------------------------------------------------|
+| `physeq` | a phyloseq object containing an otu_table of NON-NORMALIZED, INTEGER feature counts. Do not use rarefied, normalized, or relative counts. |
+| `iterations` | how many times alpha diversity should be calculated at each step for each sample |
+| `steps` | how many equally spaced steps at which to rarefy for each sample |
+| `seed` | an integer to set the random seed |
+
+## Value
+
+A dataframe with estimated alpha diversity at three hill numbers (hill0 - hill2) at an specified number of equally spaced depths for all samples in long-format.
 
 # `reorder_variable_by_clustering`
 
@@ -191,14 +219,14 @@ reorder_variable_by_clustering(data,
 
 ## Arguments
 
-| Argument        | Description                                                                                                                                                                                                                                                                                                                                                                                                       |
-|------------------|------------------------------------------------------|
-| `data`          | A dataframe                                                                                                                                                                                                                                                                                                                                                                                                       |
-| `grouping_var1` | The first categorical variable you'd like to reorder, as a string (in quotes!)                                                                                                                                                                                                                                                                                                                                    |
-| `grouping_var2` | The second categorical variable you'd like to reorder (you can prevent reordering this variable by setting `order_both` to false).                                                                                                                                                                                                                                                                                |
-| `count_var`     | The continuous variable which will fill your heatmap                                                                                                                                                                                                                                                                                                                                                              |
-| `order_both`    | Should both grouping_var1 and grouping_var2 be reordered? If false (default), only grouping_var1 is reordered.                                                                                                                                                                                                                                                                                                    |
-| `value_fill`    | Value to fill in for level combinations which don't have observations. Defaults to NULL (no filling).                                                                                                                                                                                                                                                                                                             |
+| Argument | Description |
+|-------------------|-----------------------------------------------------|
+| `data` | A dataframe |
+| `grouping_var1` | The first categorical variable you'd like to reorder, as a string (in quotes!) |
+| `grouping_var2` | The second categorical variable you'd like to reorder (you can prevent reordering this variable by setting `order_both` to false). |
+| `count_var` | The continuous variable which will fill your heatmap |
+| `order_both` | Should both grouping_var1 and grouping_var2 be reordered? If false (default), only grouping_var1 is reordered. |
+| `value_fill` | Value to fill in for level combinations which don't have observations. Defaults to NULL (no filling). |
 | `return_dendro` | Should the dendrogram also be returned, in addition to the reordered dataframe? If false (the default) returns the dataframe with converted columns. If true, returns a list, in which `reord_df` holds the reordered dataframe, and `dendrogram` holds the dendrogram. If both grouping variables were reordered, the list will include `dendrogram1` for `grouping_var1` and `dendrogram2` for `grouping_var2`. |
 
 ## Value
@@ -233,9 +261,9 @@ Often, your flowset sample names are simply the file paths of each fcs file. Thi
 
 ## Arguments
 
-| Argument          | Description                                                                                                                |
-|------------------|------------------------------------------------------|
-| `flo_set`         | a flowSet created by flowCore                                                                                              |
+| Argument | Description |
+|-------------------|-----------------------------------------------------|
+| `flo_set` | a flowSet created by flowCore |
 | `` `new_names` `` | a character vector of new names for each flowFrame in the flowSet. Length must match the number of frames in your flowSet. |
 
 # `count_gated_events`
@@ -246,7 +274,7 @@ Given a flowSet and a gate (whose parameters match those in the flowSet), this w
 
 ## Arguments
 
-| Argument  | Description                                                                        |
-|------------------|------------------------------------------------------|
-| `flo_set` | a flowSet created by flowCore                                                      |
-| `gate`    | a gate created by flowCore, whose parameters are found within the provided flowSet |
+| Argument | Description |
+|-------------------|-----------------------------------------------------|
+| `flo_set` | a flowSet created by flowCore |
+| `gate` | a gate created by flowCore, whose parameters are found within the provided flowSet |
