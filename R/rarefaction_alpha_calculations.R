@@ -104,13 +104,13 @@ rarefaction_alpha_calculations <- function(phy_object, rarefy_depth, iterations,
     result_mean <-  abind(res_list, along = 0) %>%
       apply(2:3, mean)%>%
       data.frame() %>%
-      mutate(Measure = names(q_nums)) %>%
+      mutate(Measure = names(t_nums)) %>%
       pivot_longer(!Measure, names_to = "Sample", values_to = "qD")
 
     result_sd <-  abind(res_list, along = 0) %>%
       apply(2:3, sd)%>%
       data.frame() %>%
-      mutate(Measure = names(q_nums)) %>%
+      mutate(Measure = names(t_nums)) %>%
       pivot_longer(!Measure, names_to = "Sample", values_to = "st.dev")
 
     result <- inner_join(result_mean, result_sd)
@@ -141,13 +141,13 @@ rarefaction_alpha_calculations <- function(phy_object, rarefy_depth, iterations,
     result_mean <-  abind(res_list, along = 0) %>%
       apply(2:3, mean)%>%
       data.frame() %>%
-      mutate(Measure = names(q_nums)) %>%
+      mutate(Measure = c(names(t_nums), names(q_nums))) %>%
       pivot_longer(!Measure, names_to = "Sample", values_to = "qD")
 
     result_sd <-  abind(res_list, along = 0) %>%
       apply(2:3, sd)%>%
       data.frame() %>%
-      mutate(Measure = names(q_nums)) %>%
+      mutate(Measure = c(names(t_nums), names(q_nums))) %>%
       pivot_longer(!Measure, names_to = "Sample", values_to = "st.dev")
 
     result <- inner_join(result_mean, result_sd)
