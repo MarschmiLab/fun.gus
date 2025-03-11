@@ -141,7 +141,7 @@ bray_distance <- rarefaction_beta_calculations(phy_object = preprocessed_physeq,
 
 Calculate taxonomic and phylogenetic alpha diversity using rarefaction and hill numbers
 
-This function repeatedly rarefies a phyloseq object (usually containing 16S data) and calculates alpha diversity measures using Hill Divesity numbers. Can also calculate phylogenetic distance, if your phyloseq object contains a tree.
+This function repeatedly rarefies a phyloseq object (usually containing 16S data) and calculates alpha diversity measures using Hill Diversity numbers. Can also calculate phylogenetic distance, if your phyloseq object contains a tree.
 
 ## Usage
 

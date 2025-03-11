@@ -1,6 +1,6 @@
 #' Calculate taxonomic and phylogenetic alpha diversity using rarefaction and hill numbers
 #'
-#' This function repeatedly rarefies a phyloseq object (usually containing 16S data) and calculates alpha diversity measures using Hill Divesity numbers. Can also calculate phylogenetic distance, if your phyloseq object contains a tree.
+#' This function repeatedly rarefies a phyloseq object (usually containing 16S data) and calculates alpha diversity measures using Hill Diversity numbers. Can also calculate phylogenetic distance, if your phyloseq object contains a tree.
 #' @param phy_object a phyloseq object containing an otu_table of feature counts
 #' @param rarefy_depth read depth to rarefy to in each iteration; generally the read count of the sample with the fewest reads
 #' @param iterations how many times the metric should be calculated before averaging; recommended minimum 100 up to 1000
