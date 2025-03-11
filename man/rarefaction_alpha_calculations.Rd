@@ -9,7 +9,7 @@ rarefaction_alpha_calculations(
   rarefy_depth,
   iterations,
   method = "both",
-  seed,
+  seed = 1,
   threads
 )
 }

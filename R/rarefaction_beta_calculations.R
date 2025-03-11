@@ -19,7 +19,7 @@
 #' @importFrom magrittr %>%
 #'
 #' @export
-rarefaction_beta_calculations <- function(phy_object, rarefy_depth, iterations, method, seed, threads){
+rarefaction_beta_calculations <- function(phy_object, rarefy_depth, iterations, method, seed = 1, threads){
 
   sam_sums <- sample_sums(phy_object)
 

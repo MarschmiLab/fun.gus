@@ -20,7 +20,7 @@
 #' @importFrom hillR hill_phylo hill_taxa
 #'
 #' @export
-rarefaction_alpha_calculations <- function(phy_object, rarefy_depth, iterations, method = "both", seed, threads){
+rarefaction_alpha_calculations <- function(phy_object, rarefy_depth, iterations, method = "both", seed = 1, threads){
 
   if(!method%in%c("both", "taxonomic", "phylo")){
     error("Method must be either 'both', 'taxonomic' or 'phylo'")
