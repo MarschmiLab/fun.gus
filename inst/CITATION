@@ -5,7 +5,7 @@ bibentry(
   bibtype  = "Manual",
   title    = "Custom functions used in the Cornell Aquatic Microbiology Lab",
   author = c(person("Augustus", "Pendleton")),
-  note  = "R package version 0.2.6",
+  note  = "R package version 0.5.1",
   year     = "2024",
   url      = "https://github.com/MarschmiLab/fun.gus"
 )
