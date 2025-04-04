@@ -6,7 +6,6 @@
 #' @param steps how many equally spaced steps at which to rarefy for each sample
 #' @param seed an integer to set the random seed
 #' @returns a dataframe with estimated alpha diversity at three hill numbers (hill0 - hill2) at an specified number of equally spaced depths for all samples in long-format.
-
 #' @importFrom phyloseq otu_table taxa_are_rows
 #' @importFrom dplyr bind_rows
 #' @importFrom purrr map2

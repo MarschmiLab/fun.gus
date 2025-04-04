@@ -8,6 +8,8 @@
 #' @examples
 #' make_wellmap_long() # Launch shiny app
 #'
+#' @importFrom magrittr %>%
+#'
 #' @export
 make_wellmap_long <- function() {
   appDir <- system.file("myapp", package = "fun.gus")

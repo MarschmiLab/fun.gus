@@ -1,10 +1,10 @@
 server <- function(input, output) {
 
   #initialize a blank dataframe
-  v <- reactiveValues(data = {
+  v <- shiny::reactiveValues(data = {
     data.frame(matrix(rep("", 96), nrow = 8, ncol = 12))%>%
-      rename_with(~str_replace(string = ., pattern = "X",replacement = "Col"))%>%
-      add_column(Row = LETTERS[1:8], .before = "Col1")
+      dplyr::rename_with(~stringr::str_replace(string = ., pattern = "X",replacement = "Col"))%>%
+      tibble::add_column(Row = LETTERS[1:8], .before = "Col1")
   })
 
 
@@ -13,19 +13,19 @@ server <- function(input, output) {
     DT::datatable(v$data, editable = TRUE)
   })
 
-  df_table <- reactive({
+  df_table <- shiny::reactive({
     if(input$pasted != ''){
-      df_table <- fread(paste(input$pasted, collapse = "\n"), header = FALSE, col.names = paste0("Col",1:12))
+      df_table <- data.table::fread(paste(input$pasted, collapse = "\n"), header = FALSE, col.names = paste0("Col",1:12))
       df_table <- as.data.frame(df_table)
       df_table
     }
   })
 
-  output$my_pasted <- renderDataTable(df_table())
+  output$my_pasted <- DT::renderDataTable(df_table())
 
   #when there is any edit to a cell, write that edit to the initial dataframe
   #check to make sure it's positive, if not convert
-  observeEvent(input$my_datatable_cell_edit, {
+  shiny::observeEvent(input$my_datatable_cell_edit, {
     #get values
     info = input$my_datatable_cell_edit
     i = as.numeric(info$row)
@@ -40,42 +40,42 @@ server <- function(input, output) {
   #  v$data[1:8, 2:13] <- df_table()[1:8,1:12]
   #})
 
-  long_data <- reactive({
+  long_data <- shiny::reactive({
     if(input$pasted == ''){
       v$data%>%
-        pivot_longer(cols = starts_with("Col"), names_to = "Column", values_to = "SampleName")%>%
-        mutate(clean_col = str_remove(Column, "Col"),
-               clean_col = str_pad(clean_col, width = 2, side = "left", pad = "0"),
+        tidyr::pivot_longer(cols = dplyr::starts_with("Col"), names_to = "Column", values_to = "SampleName")%>%
+        dplyr::mutate(clean_col = stringr::str_remove(Column, "Col"),
+               clean_col = stringr::str_pad(clean_col, width = 2, side = "left", pad = "0"),
                Well = paste0(Row, clean_col))%>%
-        arrange(clean_col)%>%
-        select(Well, SampleName)
+        dplyr::arrange(clean_col)%>%
+        dplyr::select(Well, SampleName)
     }else{
       v$data[1:8, 2:13] <- df_table()[1:8, 1:12]
       v$data%>%
-        pivot_longer(cols = starts_with("Col"), names_to = "Column", values_to = "SampleName")%>%
-        mutate(clean_col = str_remove(Column, "Col"),
-               clean_col = str_pad(clean_col, width = 2, side = "left", pad = "0"),
+        tidyr::pivot_longer(cols = dplyr::starts_with("Col"), names_to = "Column", values_to = "SampleName")%>%
+        dplyr::mutate(clean_col = stringr::str_remove(Column, "Col"),
+               clean_col = stringr::str_pad(clean_col, width = 2, side = "left", pad = "0"),
                Well = paste0(Row, clean_col))%>%
-        arrange(clean_col)%>%
-        select(Well, SampleName)
+        dplyr::arrange(clean_col)%>%
+        dplyr::select(Well, SampleName)
     }
 
   })
 
-  output$my_longtable <- renderDT({
+  output$my_longtable <- DT::renderDT({
     long_data()
   })
 
-  output$csv<-downloadHandler(
+  output$csv<-shiny::downloadHandler(
     filename = function(){"Long_Well_Map.csv"},
     content = function(fname){
-      write_csv(long_data(),fname)
+      readr::write_csv(long_data(),fname)
     }
   )
-  output$txt<-downloadHandler(
+  output$txt<-shiny::downloadHandler(
     filename = function(){"Long_Well_Map.txt"},
     content = function(fname){
-      write_tsv(long_data(),fname)
+      readr::write_tsv(long_data(),fname)
     }
   )
 
