@@ -1,4 +1,3 @@
 library(shiny)
-library(DT)
+library(DT, include.only = c("renderDT", "renderDataTable","datatable"))
 library(tidyverse)
-library(data.table)

@@ -9,7 +9,7 @@ server <- function(input, output) {
 
 
   #output the datatable based on the dataframe (and make it editable)
-  output$my_datatable <- renderDT({
+  output$my_datatable <- DT::renderDT({
     DT::datatable(v$data, editable = TRUE)
   })
 
