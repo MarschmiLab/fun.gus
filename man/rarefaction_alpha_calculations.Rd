@@ -30,5 +30,5 @@ rarefaction_alpha_calculations(
 a dataframe with estimated diversity (qD) for hill numbers 0-2 for each sample.
 }
 \description{
-This function repeatedly rarefies a phyloseq object (usually containing 16S data) and calculates alpha diversity measures using Hill Divesity numbers. Can also calculate phylogenetic distance, if your phyloseq object contains a tree.
+This function repeatedly rarefies a phyloseq object (usually containing 16S data) and calculates alpha diversity measures using Hill Diversity numbers. Can also calculate phylogenetic distance, if your phyloseq object contains a tree.
 }
